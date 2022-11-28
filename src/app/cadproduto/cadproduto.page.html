@@ -1,0 +1,68 @@
+<ion-content [fullscreen]="true">
+  <ion-card class="wrapper" color="prezu">
+
+    <form [formGroup]="cadProdutoForm">
+    <ion-card-header>
+      <ion-card-subtitle>Cadastro de Produto</ion-card-subtitle>
+      <ion-icon name="add-circle"></ion-icon>
+    </ion-card-header>
+
+    <!-- Nome -->
+    <ion-item color="prezu">
+      <ion-label>Nome</ion-label>
+      <ion-input formControlName="nome"></ion-input>
+    </ion-item>
+
+    <ng-container *ngFor="let erro of msgErro.nome">
+      <span class="msg-erro" *ngIf="nome?.errors?.[erro.tipo] && (nome?.dirty || nome?.touched)">
+        {{erro.aviso}}
+      </span>
+    </ng-container>
+
+
+    <!-- Descrição -->
+    <ion-item color="prezu">
+      <ion-label>Descrição</ion-label>
+      <ion-input formControlName="descricao"></ion-input>
+    </ion-item>
+    
+    <ng-container *ngFor="let erro of msgErro.nome">
+      <span class="msg-erro" *ngIf="descricao?.errors?.[erro.tipo] && (descricao?.dirty || descricao?.touched)">
+        {{erro.aviso}}
+      </span>
+    </ng-container>
+
+
+    <!-- Data de Validade -->
+    <ion-item color="prezu">
+      <ion-label>Data de Validade</ion-label>
+      <ion-input formControlName="dataVal" type="date"></ion-input>
+    </ion-item>
+
+    <ng-container *ngFor="let erro of msgErro.dataVal">
+      <span class="msg-erro" *ngIf="dataVal?.errors?.[erro.tipo] && (dataVal?.dirty || dataVal?.touched)">
+        {{erro.aviso}}
+      </span>
+    </ng-container>
+
+
+    <!-- Valor -->
+    <ion-item color="prezu">
+      <ion-label>Valor</ion-label>
+      <ion-input formControlName="valor" type="number"></ion-input>
+    </ion-item>
+
+    <ng-container *ngFor="let erro of msgErro.valor">
+      <span class="msg-erro" *ngIf="valor?.errors?.[erro.tipo] && (valor?.dirty || valor?.touched)">
+        {{erro.aviso}}
+      </span>
+    </ng-container>
+
+
+    </form>
+    <ion-item>
+      <ion-button color="prezu" (click)="cancelarCad()">Cancelar</ion-button>
+      <ion-button color="prezu">Concluir</ion-button>
+    </ion-item>
+  </ion-card>
+</ion-content>
