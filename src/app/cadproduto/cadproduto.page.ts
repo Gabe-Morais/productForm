@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { Produto } from '../models/Produto.model';
+import { ProdutoService } from '../services/produto.service';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-cadproduto',
@@ -28,7 +30,7 @@ export class CadprodutoPage implements OnInit {
     };
 
 
-  constructor(private formBuilder: FormBuilder, private route:Router) { }
+  constructor(private formBuilder: FormBuilder, private route:Router, private produtoService: ProdutoService, private bd: StorageService) { }
 
   get nome(){
     return this.cadProdutoForm.get('nome');
@@ -53,15 +55,24 @@ export class CadprodutoPage implements OnInit {
     this.route.navigateByUrl('/produtos')
   }
 
-  async salvar(){
-    if(this.cadProdutoForm.valid) {
+  async salvarProd(){
+    if(this.cadProdutoForm.valid){
       this.produto.nome = this.cadProdutoForm.get('nome').value
       this.produto.descricao = this.cadProdutoForm.get('descricao').value
       this.produto.dataVal = this.cadProdutoForm.get('dataVal').value
       this.produto.valor = this.cadProdutoForm.get('valor').value
 
+      const id = await this.produtoService.getId();
+
+      this.produto.id = id;
+
+      this.produtoService.save(this.produto);
+
+      this.produtoService.saveId(id+1);
       alert('Sucesso!')
       this.route.navigateByUrl('/produtos')
+    }else{
+      alert('Fomulario Inválido.')
     }
   }
 
