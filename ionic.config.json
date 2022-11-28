@@ -1,0 +1,7 @@
+{
+  "name": "productForm",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
